@@ -1,4 +1,5 @@
 <?php
+session_start();
 	$dir = getcwd() . '/tests/';
 	$filelist = scandir($dir, 1);
 	if (isset($_POST['test_id']))
@@ -41,7 +42,7 @@
 				echo "Ваш результат: $result правильных из " . count($userAnswer);
 				if ($result ===count($userAnswer)) {
 				$userName = $_POST['name'];
-				header('Location: http://university.netology.ru/u/avolvach/me/dz7/cert.php?name='.$userName);
+				header('Location: http://university.netology.ru/u/avolvach/me/dz8/cert.php?name='.$userName);
 				}
 			} else {
     			echo "Не все поля формы заполнены. Повторите ввод!";
@@ -83,9 +84,6 @@
 		}
 	}
 	?>
-	<label for="name">Ваше Фамилия и Имя</label>
-		<input id="name" name="name" type="text" placeholder="Иванов Иван">
-		<br />
 <input type="submit" value="Отправить">
 <p><a href="list.php">Выбрать другой тест</a></p>
 </div>

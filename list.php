@@ -1,4 +1,5 @@
 <?php
+session_start();
 $dir = getcwd() . '/tests/';
 $filelist = scandir($dir, 1);
 function GetList($filelist)
@@ -43,8 +44,15 @@ function GetTest($filelist)
        <input type="submit" value="Отправить">
     </fieldset>
 </form>
-<p><a href="admin.php">Загрузить новый тест</a></p>
-
+<h3>Добро пожаловать,  <?= $_SESSION['user']['username']; ?></h3>
+    <ul>
+        <li><a href="logout.php" >Выйти</a></li>
+        <li><? if ($_SESSION['user']['is_admin'] == 1) {?>
+        	<a href="admin.php" >Добавить тест.</a>
+        <?	
+        }
+        ?></li>
+    </ul>
 </span>
 </body>
 </html>

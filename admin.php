@@ -1,5 +1,11 @@
 
 <?php
+session_start();
+if ($_SESSION['user']['is_admin'] == 0) {
+	http_response_code(403);
+			echo 'У вас нет прав!';
+			exit(1);
+}
 if (isset($_FILES['userfile']['name']))
 {   
 	$error = $_FILES['userfile']['error'];
@@ -20,7 +26,8 @@ if (isset($_FILES['userfile']['name']))
 			} else {
 				$tmp_name = $_FILES['userfile']['tmp_name'];
         		move_uploaded_file($tmp_name, $uploaddir);
-        		echo "Файл $name успешно отправлен!</br>";
+        		header('Location: http://university.netology.ru/u/avolvach/me/dz8/list.php');
+        		//echo "Файл $name успешно отправлен!</br>";
         	}
 		}
 	} elseif (empty(($_FILES['userfile']['name']))) 
