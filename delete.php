@@ -1,5 +1,10 @@
 <?php
 session_start();
+if ($_SESSION['user']['is_admin'] == 0) {
+    http_response_code(403);
+            echo 'У вас нет прав!';
+            exit(1);
+}
 $dir = getcwd() . '/tests/';
 $filelist = scandir($dir, 1);
 function GetList($filelist)
@@ -25,7 +30,6 @@ function GetTest($filelist)
         };
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,25 +39,15 @@ function GetTest($filelist)
 <body>
 <span>
 <?php GetList($filelist)?>
-<form action="test.php" method="get">
+<form action="del.php" method="get">
     <fieldset>
-        <legend>Выберите тест для загрузки:</legend>
+        <legend>Выберите тест для удаления:</legend>
         <select name="test_id">
         <?php GetTest($filelist) ?>
         </select>
-       <input type="submit" value="Отправить">
+       <input type="submit" value="Удалить.">
     </fieldset>
 </form>
-<h3>Добро пожаловать,  <?= $_SESSION['user']['username']; ?></h3>
-    <ul>
-        <li><a href="logout.php" >Выйти</a></li>
-        <? if ($_SESSION['user']['is_admin'] == 1) {?>
-        	<li><a href="admin.php" >Добавить тест.</a></li>
-        	<li><a href="delete.php" >Удалить тест.</a></li>
-        <?	
-        }
-        ?></li>
-    </ul>
 </span>
 </body>
 </html>
